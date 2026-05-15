@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sazies — Coming Soon</title>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --pink:     #FF2D8B;
+      --black:    #0A0A0A;
+      --cream:    #F2EFE6;
+      --charcoal: #2A2A2A;
+
+      /* Type scale — brand guide */
+      --font-display: 'Anton', sans-serif;
+      --font-text:    'Space Grotesk', sans-serif;
+      --font-mono:    'JetBrains Mono', monospace;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--cream);
+      font-family: var(--font-text);
+      font-size: 18px;
+      line-height: 1.45;
+      overflow-x: hidden;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 60px 24px 48px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .bg-z {
+      position: absolute;
+      font-family: var(--font-display);
+      font-size: clamp(500px, 80vw, 1100px);
+      color: var(--pink);
+      opacity: 0.03;
+      line-height: 1;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      user-select: none;
+      animation: breathe 6s ease-in-out infinite;
+    }
+
+    @keyframes breathe {
+      0%, 100% { opacity: 0.03; }
+      50%       { opacity: 0.055; }
+    }
+
+    /* Wordmark — Anton, unchanged */
+    .wordmark {
+      font-family: var(--font-display);
+      font-size: clamp(64px, 14vw, 160px);
+      letter-spacing: 0.04em;
+      line-height: 1;
+      position: relative;
+      z-index: 1;
+      animation: fadeUp 0.8s ease 0.1s both;
+    }
+    .wordmark .z { color: var(--pink); }
+    .wordmark .dot {
+      display: inline-block;
+      width: 0.17em;
+      height: 0.17em;
+      background: var(--pink);
+      border-radius: 50%;
+      vertical-align: 0.14em;
+      margin-left: 0.03em;
+    }
+
+    /* Thin vertical rule */
+    .rule {
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, rgba(242,239,230,0.2), transparent);
+      margin: 20px auto;
+      position: relative;
+      z-index: 1;
+      animation: fadeUp 0.8s ease 0.25s both;
+    }
+
+    /* Tagline — Display D2: Anton 96/.95 → scaled for viewport */
+    .tagline {
+      font-family: var(--font-display);
+      font-size: clamp(22px, 4vw, 44px); /* H2 level on the scale */
+      line-height: 1.05;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      color: rgba(242,239,230,0.8);
+      position: relative;
+      z-index: 1;
+      animation: fadeUp 0.8s ease 0.35s both;
+      margin-bottom: 36px;
+    }
+    .tagline .pink { color: var(--pink); }
+
+    /* Email form — Space Grotesk body */
+    .notify-form {
+      display: flex;
+      width: 100%;
+      max-width: 400px;
+      position: relative;
+      z-index: 1;
+      animation: fadeUp 0.8s ease 0.45s both;
+      margin-bottom: 20px;
+    }
+
+    .notify-form input {
+      flex: 1;
+      background: var(--charcoal);
+      border: 1.5px solid rgba(242,239,230,0.1);
+      border-right: none;
+      color: var(--cream);
+      font-family: var(--font-text);
+      font-size: 15px;       /* body, slightly reduced for input */
+      font-weight: 400;
+      padding: 14px 18px;
+      outline: none;
+      transition: border-color 0.2s;
+      border-radius: 0;
+    }
+    .notify-form input::placeholder { color: rgba(242,239,230,0.25); }
+    .notify-form input:focus        { border-color: var(--pink); }
+
+    .notify-form button {
+      background: var(--pink);
+      color: var(--black);
+      font-family: var(--font-text);
+      font-weight: 700;      /* Bold 700 — label weight */
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 14px 22px;
+      border: none;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: opacity 0.2s;
+    }
+    .notify-form button:hover { opacity: 0.85; }
+
+    /* Instagram — Caption: JB Mono 14px */
+    .ig-link {
+      font-family: var(--font-mono);
+      font-size: 14px;
+      letter-spacing: 0.18em;
+      color: rgba(242,239,230,0.35);
+      text-decoration: none;
+      transition: color 0.2s;
+      position: relative;
+      z-index: 1;
+      animation: fadeUp 0.8s ease 0.55s both;
+      margin-bottom: 56px;
+    }
+    .ig-link:hover { color: var(--pink); }
+
+    /* Scroll hint — Caption: JB Mono 14px */
+    .scroll-hint {
+      position: relative;
+      z-index: 1;
+      animation: fadeUp 0.8s ease 0.7s both;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .scroll-hint .label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: rgba(242,239,230,0.22);
+    }
+    .scroll-hint .bar {
+      display: block;
+      width: 1px;
+      height: 44px;
+      background: linear-gradient(to bottom, rgba(242,239,230,0.2), transparent);
+      animation: pulse 2.2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 0.4; }
+      50%       { opacity: 1; }
+    }
+
+    /* ── TICKER ── */
+    .divider {
+      width: 100%;
+      background: var(--charcoal);
+      padding: 16px 0;
+      overflow: hidden;
+    }
+    .divider-track {
+      display: flex;
+      gap: 40px;
+      white-space: nowrap;
+      animation: ticker 18s linear infinite;
+    }
+    /* Caption level — JB Mono */
+    .divider-track span {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      color: rgba(242,239,230,0.3);
+    }
+    .divider-track .accent { color: var(--pink); }
+    @keyframes ticker {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* ── FORM SECTION ── */
+    .form-section {
+      padding: clamp(60px, 8vw, 120px) clamp(24px, 6vw, 80px);
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* Section label — Caption: JB Mono */
+    .section-label {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--pink);
+      margin-bottom: 20px;
+    }
+
+    /* Section heading — H1: Anton 64/1 */
+    .section-heading {
+      font-family: var(--font-display);
+      font-size: clamp(36px, 5vw, 64px);
+      line-height: 1;
+      letter-spacing: 0.02em;
+      margin-bottom: 16px;
+    }
+    .section-heading .highlight { color: var(--pink); }
+
+    /* Section sub — Body: Space Grotesk 18/1.45 */
+    .section-sub {
+      font-family: var(--font-text);
+      font-size: 18px;
+      font-weight: 400;
+      line-height: 1.45;
+      color: rgba(242,239,230,0.5);
+      max-width: 520px;
+      margin-bottom: 60px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 360px;
+      gap: 60px;
+      align-items: start;
+    }
+    @media (max-width: 900px) { .form-grid { grid-template-columns: 1fr; } }
+
+    /* ── FORM FIELDS ── */
+    .contact-form { display: flex; flex-direction: column; gap: 20px; }
+    .field-group   { display: flex; flex-direction: column; gap: 8px; }
+    .field-row     { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    @media (max-width: 600px) { .field-row { grid-template-columns: 1fr; } }
+
+    /* Label — Caption: JB Mono */
+    label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(242,239,230,0.4);
+    }
+    label .opt {
+      font-family: var(--font-text);
+      font-size: 11px;
+      font-weight: 400;
+      text-transform: none;
+      letter-spacing: 0;
+      color: rgba(242,239,230,0.25);
+    }
+
+    /* Inputs — Body: Space Grotesk 400 */
+    input, textarea, select {
+      background: var(--charcoal);
+      border: 1.5px solid rgba(242,239,230,0.08);
+      color: var(--cream);
+      font-family: var(--font-text);
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 1.45;
+      padding: 14px 18px;
+      width: 100%;
+      outline: none;
+      transition: border-color 0.2s;
+      appearance: none;
+      -webkit-appearance: none;
+      border-radius: 0;
+    }
+    input::placeholder, textarea::placeholder { color: rgba(242,239,230,0.2); }
+    input:focus, textarea:focus, select:focus  { border-color: var(--pink); }
+    textarea { resize: vertical; min-height: 100px; }
+
+    .select-wrap { position: relative; }
+    .select-wrap::after {
+      content: '↓';
+      position: absolute;
+      right: 16px; top: 50%;
+      transform: translateY(-50%);
+      color: var(--pink);
+      pointer-events: none;
+      font-size: 13px;
+    }
+    select option { background: var(--charcoal); }
+
+    /* Submit button — Semibold 600 label */
+    .btn-submit {
+      background: var(--pink);
+      color: var(--black);
+      font-family: var(--font-text);
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 18px 36px;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+      transition: opacity 0.2s;
+    }
+    .btn-submit:hover { opacity: 0.85; }
+
+    /* Form note — Caption: JB Mono */
+    .form-note {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      color: rgba(242,239,230,0.22);
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    /* ── SIDEBAR ── */
+    .sidebar { display: flex; flex-direction: column; gap: 32px; }
+
+    .sidebar-card {
+      background: var(--charcoal);
+      padding: 32px;
+      border-left: 3px solid var(--pink);
+    }
+    /* Sidebar heading — H2: Anton 44 */
+    .sidebar-card h3 {
+      font-family: var(--font-display);
+      font-size: 28px;
+      letter-spacing: 0.03em;
+      line-height: 1.05;
+      margin-bottom: 10px;
+    }
+    /* Sidebar body — Body: Space Grotesk 400 18/1.45 */
+    .sidebar-card p {
+      font-family: var(--font-text);
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 1.45;
+      color: rgba(242,239,230,0.5);
+      margin-bottom: 24px;
+    }
+
+    .btn-calendly {
+      display: block;
+      background: transparent;
+      color: var(--cream);
+      font-family: var(--font-text);
+      font-weight: 600;   /* Semibold — button label */
+      font-size: 13px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 14px 24px;
+      border: 1.5px solid var(--pink);
+      text-align: center;
+      text-decoration: none;
+      transition: background 0.2s, color 0.2s;
+    }
+    .btn-calendly:hover { background: var(--pink); color: var(--black); }
+
+    /* Contact details — labels in JB Mono, values in Space Grotesk */
+    .contact-details { display: flex; flex-direction: column; gap: 20px; }
+
+    .c-label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(242,239,230,0.3);
+      margin-bottom: 4px;
+    }
+    .c-value {
+      font-family: var(--font-text);
+      font-size: 16px;
+      font-weight: 400;
+      color: var(--cream);
+    }
+    .c-value a { color: var(--pink); text-decoration: none; }
+    .c-value a:hover { text-decoration: underline; }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid rgba(242,239,230,0.07);
+      padding: 36px clamp(24px, 6vw, 80px);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    /* Footer wordmark — Anton, unchanged */
+    .footer-wordmark {
+      font-family: var(--font-display);
+      font-size: 22px;
+      letter-spacing: 0.04em;
+    }
+    .footer-wordmark .z { color: var(--pink); }
+    .footer-wordmark .dot {
+      display: inline-block;
+      width: 0.17em;
+      height: 0.17em;
+      background: var(--pink);
+      border-radius: 50%;
+      vertical-align: 0.14em;
+      margin-left: 0.03em;
+    }
+
+    /* Footer meta — JB Mono caption */
+    .footer-right {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: 0.15em;
+      color: rgba(242,239,230,0.25);
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="bg-z" aria-hidden="true">Z</div>
+
+    <div class="wordmark">SA<span class="z">Z</span>IES<span class="dot"></span></div>
+
+    <div class="rule"></div>
+
+    <p class="tagline">Something <span class="pink">bold</span> is building.</p>
+
+    <form class="notify-form" action="https://api.web3forms.com/submit" method="POST">
+      <input type="hidden" name="access_key" value="b50a175a-424d-433d-8e4d-35b281e2a0c9" />
+      <input type="hidden" name="subject" value="Sazies Launch Notification Signup" />
+      <input type="email" name="email" placeholder="Get notified when we launch" required />
+      <button type="submit">Notify Me</button>
+    </form>
+
+    <a href="https://www.instagram.com/thesazies" target="_blank" class="ig-link">@thesazies ↗</a>
+
+    <a href="#contact" class="scroll-hint">
+      <span class="label">Work with us</span>
+      <span class="bar"></span>
+    </a>
+  </section>
+
+  <!-- TICKER -->
+  <div class="divider" aria-hidden="true">
+    <div class="divider-track">
+      <span>SOCIAL MEDIA</span><span class="accent">·</span>
+      <span>CONTENT STRATEGY</span><span class="accent">·</span>
+      <span>BRAND IDENTITY</span><span class="accent">·</span>
+      <span>TORONTO</span><span class="accent">·</span>
+      <span>REELS &amp; SHORT FORM</span><span class="accent">·</span>
+      <span>PAID MEDIA</span><span class="accent">·</span>
+      <span>COMMUNITY GROWTH</span><span class="accent">·</span>
+      <span>SOCIAL MEDIA</span><span class="accent">·</span>
+      <span>CONTENT STRATEGY</span><span class="accent">·</span>
+      <span>BRAND IDENTITY</span><span class="accent">·</span>
+      <span>TORONTO</span><span class="accent">·</span>
+      <span>REELS &amp; SHORT FORM</span><span class="accent">·</span>
+      <span>PAID MEDIA</span><span class="accent">·</span>
+      <span>COMMUNITY GROWTH</span><span class="accent">·</span>
+    </div>
+  </div>
+
+  <!-- FORM SECTION -->
+  <section class="form-section" id="contact">
+    <p class="section-label">Let's Talk</p>
+    <h2 class="section-heading">Ready to grow your<br><span class="highlight">social media?</span></h2>
+    <p class="section-sub">Fill out the form and we'll get back to you within 48 hours. If we're a good fit, we'll book a discovery call and go from there.</p>
+
+    <div class="form-grid">
+
+      <form class="contact-form" action="https://api.web3forms.com/submit" method="POST">
+        <input type="hidden" name="access_key" value="b50a175a-424d-433d-8e4d-35b281e2a0c9" />
+        <input type="hidden" name="subject" value="New Sazies Enquiry" />
+
+        <div class="field-row">
+          <div class="field-group">
+            <label for="name">Your Name</label>
+            <input type="text" id="name" name="name" required placeholder="Jane Smith" />
+          </div>
+          <div class="field-group">
+            <label for="business">Business Name</label>
+            <input type="text" id="business" name="business" required placeholder="The Good Café" />
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" name="email" required placeholder="you@yourbusiness.com" />
+        </div>
+
+        <div class="field-group">
+          <label for="social">Website or Social Media Link <span class="opt">(optional)</span></label>
+          <input type="text" id="social" name="social" placeholder="instagram.com/yourbusiness" />
+        </div>
+
+        <div class="field-group">
+          <label for="about">What does your business do?</label>
+          <textarea id="about" name="about" required placeholder="Tell us a bit about what you do and who you serve."></textarea>
+        </div>
+
+        <div class="field-group">
+          <label for="struggle">What are you struggling with most?</label>
+          <div class="select-wrap">
+            <select id="struggle" name="struggle" required>
+              <option value="" disabled selected>Select one...</option>
+              <option>Not enough followers or reach</option>
+              <option>Low engagement on posts</option>
+              <option>No time to create content</option>
+              <option>No clear strategy</option>
+              <option>Content doesn't convert</option>
+              <option>Starting from zero</option>
+              <option>Other</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label for="package">Which package interests you?</label>
+          <div class="select-wrap">
+            <select id="package" name="package">
+              <option value="" disabled selected>Not sure yet</option>
+              <option>Content Creation Only</option>
+              <option>Social Media Management</option>
+              <option>Full-Service (Strategy + Content + Management)</option>
+              <option>Brand Identity</option>
+              <option>Not sure — let's talk</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label for="budget">Monthly marketing budget</label>
+          <div class="select-wrap">
+            <select id="budget" name="budget" required>
+              <option value="" disabled selected>Select a range...</option>
+              <option>Under $500/mo</option>
+              <option>$500 – $1,000/mo</option>
+              <option>$1,000 – $2,500/mo</option>
+              <option>$2,500 – $5,000/mo</option>
+              <option>$5,000+/mo</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label for="timeline">When do you want to start?</label>
+          <div class="select-wrap">
+            <select id="timeline" name="timeline" required>
+              <option value="" disabled selected>Select a timeline...</option>
+              <option>ASAP</option>
+              <option>Within 1 month</option>
+              <option>1–3 months</option>
+              <option>Just exploring for now</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label for="source">How did you hear about us? <span class="opt">(optional)</span></label>
+          <input type="text" id="source" name="source" placeholder="Google, Instagram, a friend..." />
+        </div>
+
+        <div>
+          <button type="submit" class="btn-submit">Send My Intake Form →</button>
+          <p class="form-note">No spam. No pressure. Just a conversation.</p>
+        </div>
+      </form>
+
+      <!-- SIDEBAR -->
+      <div class="sidebar">
+        <div class="sidebar-card">
+          <h3>Or book directly</h3>
+          <p>Already know you're ready? Skip the form and book a free 30-minute discovery call on Calendly.</p>
+          <a href="https://calendly.com/chyeelam520/30min" target="_blank" class="btn-calendly">Book a Discovery Call →</a>
+        </div>
+
+        <div class="contact-details">
+          <div>
+            <div class="c-label">Email</div>
+            <div class="c-value"><a href="mailto:info@sazies.com">info@sazies.com</a></div>
+          </div>
+          <div>
+            <div class="c-label">Instagram</div>
+            <div class="c-value"><a href="https://www.instagram.com/thesazies" target="_blank">@thesazies</a></div>
+          </div>
+          <div>
+            <div class="c-label">Location</div>
+            <div class="c-value">Toronto, Ontario</div>
+          </div>
+          <div>
+            <div class="c-label">Response Time</div>
+            <div class="c-value">Within 48 hours</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-wordmark">SA<span class="z">Z</span>IES<span class="dot"></span></div>
+    <div class="footer-right">Toronto · © 2026 Sazies</div>
+  </footer>
+
+</body>
+</html>
